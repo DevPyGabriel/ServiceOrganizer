@@ -103,7 +103,7 @@ The palette stays neutral and cool, with one blue accent for primary actions and
 
 ## Layout
 
-At wide widths, center the workspace in a 1124px maximum container. Use a 390px form column, a flexible preview column, and a 20px gap. Stack the form above the preview at 900px and below. At 520px and below, use 16px page gutters; the desktop header and content use 20px gutters. Keep the primary actions directly below the preview.
+At wide widths, center the workspace in a 1124px maximum container. Use a 390px form column, a flexible preview column, and a 20px gap. Stack the form above the preview at 900px and below. At 520px and below, use 16px page gutters, stack the expiration date and profile fields, and give the native date input a 44px touch height with 16px text; the desktop header and content use 20px gutters. Keep the primary actions directly below the preview.
 
 Use compact 8px gaps between related form groups and 20px panel insets. Keep all form fields visible together on desktop and avoid horizontal scrolling at phone widths.
 

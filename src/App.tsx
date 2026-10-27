@@ -300,12 +300,13 @@ function App() {
                   />
                 </div>
 
-                <div className="field-row">
+                <div className="field-row date-profile-row">
                   <div className="field-group">
                     <Label className="field-label" htmlFor="expiration-date">
                       Fecha de vencimiento
                     </Label>
                     <Input
+                      className="expiration-date-input"
                       id="expiration-date"
                       onChange={(event) =>
                         updateField("expirationDate", event.target.value)

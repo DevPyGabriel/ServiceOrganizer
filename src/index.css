@@ -273,6 +273,13 @@
   font-size: 13px;
 }
 
+.expiration-date-input {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .service-select-wrap {
   position: relative;
 }
@@ -465,6 +472,16 @@
 
   .app-header {
     height: 60px;
+  }
+
+  .date-profile-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .expiration-date-input {
+    height: 44px !important;
+    padding: 8px 10px !important;
+    font-size: 16px !important;
   }
 
   .privacy-note {
