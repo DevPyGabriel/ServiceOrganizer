@@ -331,8 +331,8 @@
 
 .short-textarea,
 .warranty-textarea {
-  min-height: 44px !important;
-  height: 44px;
+  min-height: 72px !important;
+  height: 72px;
   resize: vertical;
   border-color: #d1d5db;
   border-radius: 6px;
@@ -476,12 +476,6 @@
 
   .date-profile-row {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .expiration-date-input {
-    height: 44px !important;
-    padding: 8px 10px !important;
-    font-size: 16px !important;
   }
 
   .privacy-note {
