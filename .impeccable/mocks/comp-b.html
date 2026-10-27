@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Preparar mensaje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f9fafb;color:#111827;font:14px Inter,Arial,sans-serif}
+    .bar{height:64px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 6%;font-weight:650}
+    .dot{width:9px;height:9px;border-radius:50%;background:#2563eb;margin-right:11px}
+    main{max-width:1050px;margin:22px auto;padding:0 28px}
+    h1{font-size:27px;letter-spacing:-.7px;margin:0 0 5px}p{color:#6b7280;margin:0}
+    .intro{margin-bottom:12px}
+    .panel{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:10px}
+    .panel-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .panel-title h2{font-size:14px;margin:0}.quiet{font-size:12px;color:#6b7280}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 14px}
+    .field{min-width:0}.label{display:block;font-weight:550;font-size:12px;margin:0 0 4px}
+    .control{height:30px;border:1px solid #d1d5db;border-radius:6px;padding:7px;color:#6b7280;white-space:nowrap;overflow:hidden}
+    .full{grid-column:span 2}
+    .message-area{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+    .message{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:11px;line-height:1.35;color:#374151}
+    .message strong{color:#111827}
+    .buttons{display:grid;gap:8px;min-width:190px}
+    .button{border:0;border-radius:6px;background:#2563eb;color:#fff;padding:10px 13px;font:600 13px Inter;white-space:nowrap}
+    .button.secondary{background:#fff;color:#374151;border:1px solid #d1d5db}
+    .status{font-size:12px}
+    @media(max-width:700px){main{margin:22px auto;padding:0 16px}.grid{grid-template-columns:1fr 1fr}.full{grid-column:span 2}.message-area{grid-template-columns:1fr}.buttons{grid-template-columns:1fr 1fr}.bar{padding:0 16px}}
+  </style>
+</head>
+<body>
+  <header class="bar"><span class="dot"></span>Mensaje de servicio</header>
+  <main>
+    <div class="intro"><h1>Prepara tu mensaje</h1><p>Completa la información y revisa el resultado antes de compartir.</p></div>
+    <section class="panel">
+      <div class="panel-title"><h2>Información del servicio</h2><span class="quiet">Los datos no se guardan</span></div>
+      <div class="grid">
+        <div class="field"><label class="label">Servicio</label><div class="control">Disney+ + ESPN</div></div>
+        <div class="field"><label class="label">Cliente</label><div class="control">Mariana Torres</div></div>
+        <div class="field"><label class="label">Vencimiento</label><div class="control">30/11/2026</div></div>
+        <div class="field"><label class="label">Usuario / correo</label><div class="control">mariana@ejemplo.com</div></div>
+        <div class="field"><label class="label">Contraseña (opcional)</label><div class="control">••••••••</div></div>
+        <div class="field"><label class="label">Perfil / PIN (opcional)</label><div class="control">Perfil 2 · ••••</div></div>
+        <div class="field"><label class="label">Descripción (opcional)</label><div class="control">Pantalla principal</div></div>
+        <div class="field full"><label class="label">Mensaje de garantía</label><div class="control">La garantía se rige por las condiciones acordadas.</div></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><h2>Vista previa de WhatsApp</h2><span class="quiet">Contenido ilustrativo</span></div>
+      <div class="message-area">
+        <div class="message"><strong>Hola, Mariana 👋</strong><br>Tu servicio de <strong>Disney+ + ESPN</strong> ya está listo.<br>Usuario: mariana@ejemplo.com · Contraseña: ••••••••<br>Perfil: Perfil 2 · PIN: •••• · Descripción: Pantalla principal<br>Garantía: La garantía se rige por las condiciones acordadas.<br>Vencimiento: 30/11/2026</div>
+        <div class="buttons"><button class="button">Copiar mensaje</button><button class="button secondary">Compartir por WhatsApp</button></div>
+      </div>
+      <p class="status" style="margin-top:9px">Revisa el mensaje antes de enviarlo.</p>
+    </section>
+  </main>
+</body>
+</html>

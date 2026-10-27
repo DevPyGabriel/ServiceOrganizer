@@ -1,0 +1,33 @@
+{
+  "regions": [
+    { "id": "brand", "kind": "text", "pixelBox": { "x": 86, "y": 24, "w": 170, "h": 24 }, "note": "Product name in the page header" },
+    { "id": "privacy", "kind": "text", "pixelBox": { "x": 1165, "y": 25, "w": 190, "h": 20 }, "note": "Local processing and no-account note" },
+    { "id": "page-title", "kind": "text", "pixelBox": { "x": 158, "y": 104, "w": 290, "h": 42 }, "note": "Page title: Prepara tu mensaje" },
+    { "id": "page-summary", "kind": "text", "pixelBox": { "x": 158, "y": 145, "w": 565, "h": 22 }, "note": "One-line explanation of the two-column work area" },
+    { "id": "form-title", "kind": "text", "pixelBox": { "x": 179, "y": 202, "w": 210, "h": 24 }, "note": "Form panel title" },
+    { "id": "service-label", "kind": "text", "pixelBox": { "x": 179, "y": 236, "w": 120, "h": 18 }, "note": "Service field label" },
+    { "id": "service-control", "kind": "control", "pixelBox": { "x": 179, "y": 258, "w": 348, "h": 38 }, "note": "Service selector with Disney+ + ESPN selected" },
+    { "id": "customer-label", "kind": "text", "pixelBox": { "x": 179, "y": 303, "w": 100, "h": 18 }, "note": "Customer field label" },
+    { "id": "customer-control", "kind": "control", "pixelBox": { "x": 179, "y": 325, "w": 348, "h": 38 }, "note": "Customer name input" },
+    { "id": "username-label", "kind": "text", "pixelBox": { "x": 179, "y": 372, "w": 150, "h": 18 }, "note": "Username or email field label" },
+    { "id": "username-control", "kind": "control", "pixelBox": { "x": 179, "y": 392, "w": 348, "h": 38 }, "note": "Customer username or email input" },
+    { "id": "expiry-label", "kind": "text", "pixelBox": { "x": 179, "y": 439, "w": 115, "h": 18 }, "note": "Expiration date field label" },
+    { "id": "expiry-control", "kind": "control", "pixelBox": { "x": 179, "y": 459, "w": 168, "h": 38 }, "note": "Expiration date input" },
+    { "id": "profile-label", "kind": "text", "pixelBox": { "x": 357, "y": 439, "w": 100, "h": 18 }, "note": "Optional profile field label" },
+    { "id": "profile-control", "kind": "control", "pixelBox": { "x": 357, "y": 459, "w": 170, "h": 38 }, "note": "Optional profile input" },
+    { "id": "password-label", "kind": "text", "pixelBox": { "x": 179, "y": 507, "w": 155, "h": 18 }, "note": "Optional password field label" },
+    { "id": "password-control", "kind": "control", "pixelBox": { "x": 179, "y": 526, "w": 168, "h": 38 }, "note": "Optional password input" },
+    { "id": "pin-label", "kind": "text", "pixelBox": { "x": 357, "y": 507, "w": 115, "h": 18 }, "note": "Optional PIN field label" },
+    { "id": "pin-control", "kind": "control", "pixelBox": { "x": 357, "y": 526, "w": 170, "h": 38 }, "note": "Optional PIN input" },
+    { "id": "description-label", "kind": "text", "pixelBox": { "x": 179, "y": 574, "w": 150, "h": 18 }, "note": "Optional description field label" },
+    { "id": "description-control", "kind": "control", "pixelBox": { "x": 179, "y": 594, "w": 348, "h": 38 }, "note": "Optional service description input" },
+    { "id": "warranty-label", "kind": "text", "pixelBox": { "x": 179, "y": 641, "w": 150, "h": 18 }, "note": "Warranty message field label" },
+    { "id": "warranty-control", "kind": "control", "pixelBox": { "x": 179, "y": 661, "w": 348, "h": 38 }, "note": "Editable warranty message input" },
+    { "id": "preview-title", "kind": "text", "pixelBox": { "x": 589, "y": 202, "w": 240, "h": 24 }, "note": "WhatsApp message preview title" },
+    { "id": "live-label", "kind": "text", "pixelBox": { "x": 1128, "y": 205, "w": 140, "h": 18 }, "note": "Live preview status" },
+    { "id": "message", "kind": "text", "pixelBox": { "x": 612, "y": 286, "w": 565, "h": 295 }, "note": "Complete WhatsApp message preview, including optional credentials and expiration date" },
+    { "id": "copy-button", "kind": "control", "pixelBox": { "x": 589, "y": 632, "w": 129, "h": 43 }, "note": "Primary copy message button" },
+    { "id": "share-button", "kind": "control", "pixelBox": { "x": 727, "y": 632, "w": 190, "h": 43 }, "note": "Secondary WhatsApp sharing button" },
+    { "id": "review-note", "kind": "text", "pixelBox": { "x": 589, "y": 689, "w": 300, "h": 20 }, "note": "Reminder to confirm the details before sharing" }
+  ]
+}

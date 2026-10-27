@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Scaffold reference: comp-c.png</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Krub:wght@700&display=swap">
+  <link rel="stylesheet" href="layout.css">
+  <style>html,body{margin:0}body{background:#f8f8f8}.region{box-sizing:border-box}.region.text p{white-space:pre-wrap}</style>
+</head>
+<body>
+<!-- Reference only. Every region sits at its measured box inside a comp-aspect frame. Take the boxes (layout.css), keep your own semantic structure. -->
+<main class="comp-frame" style="max-width:1440px">
+  <div class="r-brand region text" data-region="brand"><!-- Product name in the page header --><p style="font-size:var(--r-brand-font);line-height:1.05;margin:0">brand</p></div>
+  <div class="r-privacy region text" data-region="privacy"><!-- Local processing and no-account note --><p style="font-size:var(--r-privacy-font);line-height:1.05;margin:0">privacy</p></div>
+  <div class="r-page-title region text" data-region="page-title"><!-- Page title: Prepara tu mensaje --><p style="font-size:var(--r-page-title-font);font-family:var(--r-page-title-family),sans-serif;font-weight:var(--r-page-title-weight);line-height:1.05;margin:0">page-title</p></div>
+  <div class="r-page-summary region text" data-region="page-summary"><!-- One-line explanation of the two-column work area --><p style="font-size:var(--r-page-summary-font);line-height:1.05;margin:0">page-summary</p></div>
+  <div class="r-form-title region text" data-region="form-title"><!-- Form panel title --><p style="font-size:var(--r-form-title-font);line-height:1.05;margin:0">form-title</p></div>
+  <div class="r-service-label region text" data-region="service-label"><!-- Service field label --><p style="font-size:var(--r-service-label-font);line-height:1.05;margin:0">service-label</p></div>
+  <div class="r-service-control region control" data-region="service-control"><!-- Service selector with Disney+ + ESPN selected: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop service-control); a control need not have button chrome --></div>
+  <div class="r-customer-label region text" data-region="customer-label"><!-- Customer field label --><p style="font-size:var(--r-customer-label-font);line-height:1.05;margin:0">customer-label</p></div>
+  <div class="r-customer-control region control" data-region="customer-control"><!-- Customer name input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop customer-control); a control need not have button chrome --></div>
+  <div class="r-username-label region text" data-region="username-label"><!-- Username or email field label --><p style="font-size:var(--r-username-label-font);line-height:1.05;margin:0">username-label</p></div>
+  <div class="r-username-control region control" data-region="username-control"><!-- Customer username or email input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop username-control); a control need not have button chrome --></div>
+  <div class="r-expiry-label region text" data-region="expiry-label"><!-- Expiration date field label --><p style="font-size:var(--r-expiry-label-font);line-height:1.05;margin:0">expiry-label</p></div>
+  <div class="r-expiry-control region control" data-region="expiry-control"><!-- Expiration date input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop expiry-control); a control need not have button chrome --></div>
+  <div class="r-profile-label region text" data-region="profile-label"><!-- Optional profile field label --><p style="font-size:var(--r-profile-label-font);line-height:1.05;margin:0">profile-label</p></div>
+  <div class="r-profile-control region control" data-region="profile-control"><!-- Optional profile input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop profile-control); a control need not have button chrome --></div>
+  <div class="r-password-label region text" data-region="password-label"><!-- Optional password field label --><p style="font-size:var(--r-password-label-font);line-height:1.05;margin:0">password-label</p></div>
+  <div class="r-password-control region control" data-region="password-control"><!-- Optional password input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop password-control); a control need not have button chrome --></div>
+  <div class="r-pin-label region text" data-region="pin-label"><!-- Optional PIN field label --><p style="font-size:var(--r-pin-label-font);line-height:1.05;margin:0">pin-label</p></div>
+  <div class="r-pin-control region control" data-region="pin-control"><!-- Optional PIN input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop pin-control); a control need not have button chrome --></div>
+  <div class="r-description-label region text" data-region="description-label"><!-- Optional description field label --><p style="font-size:var(--r-description-label-font);line-height:1.05;margin:0">description-label</p></div>
+  <div class="r-description-control region control" data-region="description-control"><!-- Optional service description input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop description-control); a control need not have button chrome --></div>
+  <div class="r-warranty-label region text" data-region="warranty-label"><!-- Warranty message field label --><p style="font-size:var(--r-warranty-label-font);line-height:1.05;margin:0">warranty-label</p></div>
+  <div class="r-warranty-control region control" data-region="warranty-control"><!-- Editable warranty message input: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop warranty-control); a control need not have button chrome --></div>
+  <div class="r-preview-title region text" data-region="preview-title"><!-- WhatsApp message preview title --><p style="font-size:var(--r-preview-title-font);line-height:1.05;margin:0">preview-title</p></div>
+  <div class="r-live-label region text" data-region="live-label"><!-- Live preview status --><p style="font-size:var(--r-live-label-font);line-height:1.05;margin:0">live-label</p></div>
+  <div class="r-message region text" data-region="message"><!-- Complete WhatsApp message preview, including optional credentials and expiration date --><p style="font-size:var(--r-message-font);line-height:1.05;margin:0">message</p></div>
+  <div class="r-copy-button region control" data-region="copy-button"><!-- Primary copy message button: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop copy-button); a control need not have button chrome --></div>
+  <div class="r-share-button region control" data-region="share-button"><!-- Secondary WhatsApp sharing button: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop share-button); a control need not have button chrome --></div>
+  <div class="r-review-note region text" data-region="review-note"><!-- Reminder to confirm the details before sharing --><p style="font-size:var(--r-review-note-font);line-height:1.05;margin:0">review-note</p></div>
+</main>
+</body>
+</html>
