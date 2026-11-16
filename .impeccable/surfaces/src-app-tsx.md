@@ -17,7 +17,7 @@ Web app · Operate. The personal user prepares a customer delivery message, revi
 
 **OWN-WORLD:** Follow the user's chosen category-standard web-app language: pale gray page ground, white bordered work surfaces, dark readable text, restrained blue primary actions, and Inter. Use standard shadcn/ui-style controls, consistent six-pixel control radii, and 12-pixel panel radii. Do not add a competing decorative motif.
 
-**STORY:** The provider enters the service, customer, account details, optional access information, warranty copy, and expiration date. The message updates as they type; they review it, then copy it or open WhatsApp sharing. Blank optional fields do not appear in the final text. Credentials are not persisted.
+**STORY:** The provider enters the required service, optional customer and username/email, account details, optional access information, optional warranty copy, and optional expiration date. The message updates as they type; they review it, then copy it or open WhatsApp sharing. A separate payment message uses the predefined recipient details and a user-entered amount in Bs. The provider can optionally copy both messages together once the service and payment amount are valid. Blank optional fields do not appear in the service message. Credentials are not persisted.
 
 **FIRST VIEWPORT:** At 1440×900, place the compact data form in a narrow left column and a broad WhatsApp preview on the right. Keep all input groups visible in the form. Make the preview the first visual focus; place copy and WhatsApp actions directly beneath it. At mobile widths, stack form before preview and keep both actions reachable without horizontal scrolling.
 

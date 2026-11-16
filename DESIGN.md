@@ -68,6 +68,10 @@ The visual language is intentionally restrained: cool page background, white bor
 
 **Key Characteristics:**
 - A narrow form paired with a broader live preview on desktop.
+- A separate payment message with fixed recipient details, a numeric Bs. amount, and its own copy action.
+- An optional combined-copy action that is available only when both messages are complete.
+- Optional customer, username/email, and expiration date fields that disappear from the service message when blank.
+- Service is the only required service-message field; blank optional fields, including warranty, are omitted.
 - Clear, editable message content with bold, emoji-guided labels and optional details omitted when blank.
 - Local-first interaction without retaining customer credentials.
 
@@ -136,6 +140,12 @@ Use 12px corners for the main panels, 10px for the message preview, and 6px for 
 ### Message Preview
 - **Style:** White surface with a 1px soft border, 10px corners, and 20px padding.
 - **Content:** Preserve line breaks and wrap long text so the complete message can be reviewed before sharing.
+
+### Payment Message
+- **Content:** Show the predefined C.I., phone, and account holder details, followed by the user's amount in Bs.
+- **Behavior:** Update the preview as the amount changes and enable copying only for a valid positive amount.
+- **Layout:** Reuse the same bordered form and preview panels, controls, and copy-button treatment as the service message.
+- **Combined action:** Offer copying both complete messages together; keep it disabled until the service-required fields and valid positive amount are present.
 
 ## Do's and Don'ts
 

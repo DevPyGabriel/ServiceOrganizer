@@ -20,13 +20,15 @@ Create a clear, formatted WhatsApp message containing service and customer detai
 
 ## Capabilities and Constraints
 
-- Include service, customer, username/email, and expiration date in each message.
+- Include the service in each message; customer, username/email, and expiration date are optional and omitted when blank.
 - Support optional password, profile, PIN, and description fields.
-- Allow the warranty message to be edited, prefilled with "100% de garantia ante caidas y problemas con el servicio".
+- Allow the optional warranty message to be edited, prefilled with "100% de garantia ante caidas y problemas con el servicio".
 - Allow the prepared message to be copied or shared directly through WhatsApp.
+- Provide a separate copyable payment message with predefined C.I., phone, and account holder details, plus a user-entered amount in Bs.
+- Allow copying the service and payment messages together only when the required service details and a valid positive payment amount are provided.
 - Select the service from the user's fixed catalog.
 - Format message field labels in bold and add a guiding emoji to each label.
-- Omit optional details from the final message when they are blank.
+- Require only the service field in the service message and omit other blank optional details.
 - Keep credentials in the current page session; do not persist them.
 - Support a responsive web experience on desktop and mobile devices.
 - Deployment host is undecided.

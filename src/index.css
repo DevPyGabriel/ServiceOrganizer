@@ -277,8 +277,15 @@
   display: block;
   width: 100%;
   min-width: 0;
+  min-inline-size: 0;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+.message-form .expiration-date-input {
+  height: 34px;
+  font-size: 13px;
+  line-height: normal;
 }
 
 .service-select-wrap {
@@ -391,6 +398,44 @@
   padding: 20px;
 }
 
+.payment-workspace {
+  margin-top: 20px;
+}
+
+.payment-form-panel,
+.payment-preview-panel {
+  min-height: 0;
+}
+
+.payment-details {
+  margin: 0 0 16px;
+}
+
+.payment-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.payment-detail-row:first-child {
+  padding-top: 0;
+}
+
+.payment-detail-row dt {
+  color: #6b7280;
+}
+
+.payment-detail-row dd {
+  margin: 0;
+  color: #374151;
+  font-weight: 500;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
 .message-preview {
   display: block;
   min-height: 328px;
@@ -479,7 +524,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .expiration-date-input {
+  .message-form .expiration-date-input {
     height: 44px;
     min-height: 44px;
     padding: 8px 10px;
@@ -488,7 +533,7 @@
     text-align: left;
   }
 
-  .expiration-date-input::-webkit-date-and-time-value {
+  .message-form .expiration-date-input::-webkit-date-and-time-value {
     min-width: 0;
     text-align: left;
   }

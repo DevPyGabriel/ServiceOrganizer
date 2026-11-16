@@ -32,10 +32,12 @@ interface MessageFields {
 }
 
 interface Feedback {
-  action: "copy" | "share"
+  action: "copy" | "copyBoth" | "share"
   message: string
   type: "error" | "success"
 }
+
+type FeedbackHandler = (feedback: Feedback) => void
 
 const serviceOptions = [
   "Disney+ Sin Espn",
@@ -55,6 +57,12 @@ const serviceOptions = [
 
 const warrantyDefault =
   "100% de garantia ante caidas y problemas con el servicio"
+
+const paymentDetails = {
+  ci: "18006390",
+  phone: "04246598611",
+  holder: "Virginia Rosales",
+}
 
 const initialFields: MessageFields = {
   service: "",
@@ -78,6 +86,11 @@ const formattedMessageLabels = new Set([
   "*Descripción:*",
   "*Garantía:*",
   "*Fecha de vencimiento:*",
+  "*Datos para realizar el pago*",
+  "*C.I.:*",
+  "*Teléfono:*",
+  "*Titular:*",
+  "*Monto:*",
 ])
 
 function formatExpirationDate(value: string) {
@@ -91,7 +104,9 @@ function formatExpirationDate(value: string) {
 
 function buildMessage(fields: MessageFields) {
   const accessDetails = [
-    `📧 *Usuario / Correo:* ${fields.username.trim() || "[Usuario / Correo]"}`,
+    fields.username.trim()
+      ? `📧 *Usuario / Correo:* ${fields.username.trim()}`
+      : "",
     fields.password.trim() ? `🔑 *Clave:* ${fields.password.trim()}` : "",
     fields.profile.trim() ? `🎭 *Perfil:* ${fields.profile.trim()}` : "",
     fields.pin.trim() ? `🔢 *PIN:* ${fields.pin.trim()}` : "",
@@ -99,21 +114,33 @@ function buildMessage(fields: MessageFields) {
 
   return [
     `📺 *Servicio:* ${fields.service.trim() || "[Servicio]"}`,
-    `👤 *Cliente:* ${fields.customer.trim() || "[Cliente]"}`,
+    fields.customer.trim() ? `👤 *Cliente:* ${fields.customer.trim()}` : "",
     accessDetails.join("\n"),
     fields.description.trim()
       ? `📝 *Descripción:* ${fields.description.trim()}`
       : "",
-    `🛡️ *Garantía:* ${fields.warranty.trim() || "[Mensaje de garantía]"}`,
-    `📅 *Fecha de vencimiento:* ${formatExpirationDate(fields.expirationDate)}`,
+    fields.warranty.trim() ? `🛡️ *Garantía:* ${fields.warranty.trim()}` : "",
+    fields.expirationDate
+      ? `📅 *Fecha de vencimiento:* ${formatExpirationDate(fields.expirationDate)}`
+      : "",
   ]
     .filter(Boolean)
     .join("\n\n")
 }
 
+function buildPaymentMessage(amount: string) {
+  return [
+    "💳 *Datos para realizar el pago*",
+    `🪪 *C.I.:* ${paymentDetails.ci}`,
+    `📱 *Teléfono:* ${paymentDetails.phone}`,
+    `👤 *Titular:* ${paymentDetails.holder}`,
+    `💵 *Monto:* ${amount.trim() ? `Bs. ${amount.trim()}` : "[Monto en Bs.]"}`,
+  ].join("\n")
+}
+
 function renderMessagePreview(message: string) {
   return message
-    .split(/(\*(?:Servicio|Cliente|Usuario \/ Correo|Clave|Perfil|PIN|Descripción|Garantía|Fecha de vencimiento):\*)/g)
+    .split(/(\*(?:Datos para realizar el pago|(?:Servicio|Cliente|Usuario \/ Correo|Clave|Perfil|PIN|Descripción|Garantía|Fecha de vencimiento|C\.I\.|Teléfono|Titular|Monto):)\*)/g)
     .map((part, index) =>
       formattedMessageLabels.has(part) ? (
         <strong key={index}>{part.slice(1, -1)}</strong>
@@ -130,19 +157,27 @@ function App() {
     pin: false,
   })
   const [feedback, setFeedback] = useState<Feedback | null>(null)
+  const [paymentAmount, setPaymentAmount] = useState("")
+  const [isPaymentAmountValid, setIsPaymentAmountValid] = useState(false)
+  const [paymentFeedback, setPaymentFeedback] = useState<Feedback | null>(null)
+  const [combinedFeedback, setCombinedFeedback] = useState<Feedback | null>(null)
 
   const message = useMemo(() => buildMessage(fields), [fields])
-  const isReady = Boolean(
-    fields.service.trim() &&
-      fields.customer.trim() &&
-      fields.username.trim() &&
-      fields.warranty.trim() &&
-      fields.expirationDate,
+  const paymentMessage = useMemo(
+    () => buildPaymentMessage(paymentAmount),
+    [paymentAmount],
   )
+  const isReady = Boolean(fields.service.trim())
+  const isPaymentReady =
+    isPaymentAmountValid &&
+    paymentAmount.trim() !== "" &&
+    Number.isFinite(Number(paymentAmount)) &&
+    Number(paymentAmount) > 0
 
   function updateField(field: keyof MessageFields, value: string) {
     setFields((currentFields) => ({ ...currentFields, [field]: value }))
     setFeedback(null)
+    setCombinedFeedback(null)
   }
 
   function toggleCredential(field: keyof typeof visibleCredentials) {
@@ -152,12 +187,15 @@ function App() {
     }))
   }
 
-  async function copyMessage() {
-    if (!isReady) return
-
+  async function copyText(
+    text: string,
+    setResult: FeedbackHandler,
+    successMessage: string,
+    action: Feedback["action"] = "copy",
+  ) {
     if (!navigator.clipboard?.writeText) {
-      setFeedback({
-        action: "copy",
+      setResult({
+        action,
         message:
           "Este navegador no permite copiar desde esta página. Usa Compartir por WhatsApp.",
         type: "error",
@@ -166,21 +204,49 @@ function App() {
     }
 
     try {
-      await navigator.clipboard.writeText(message)
-      setFeedback({
-        action: "copy",
-        message: "Mensaje copiado. Ya puedes pegarlo en WhatsApp.",
+      await navigator.clipboard.writeText(text)
+      setResult({
+        action,
+        message: successMessage,
         type: "success",
       })
     } catch (error) {
       console.error("No se pudo copiar el mensaje.", error)
-      setFeedback({
-        action: "copy",
+      setResult({
+        action,
         message:
           "No se pudo copiar. Revisa los permisos del navegador o usa Compartir por WhatsApp.",
         type: "error",
       })
     }
+  }
+
+  async function copyMessage() {
+    if (!isReady) return
+    await copyText(
+      message,
+      setFeedback,
+      "Mensaje copiado. Ya puedes pegarlo en WhatsApp.",
+    )
+  }
+
+  async function copyPaymentMessage() {
+    if (!isPaymentReady) return
+    await copyText(
+      paymentMessage,
+      setPaymentFeedback,
+      "Mensaje de pago copiado.",
+    )
+  }
+
+  async function copyCombinedMessages() {
+    if (!isReady || !isPaymentReady) return
+    await copyText(
+      `${message}\n\n${paymentMessage}`,
+      setCombinedFeedback,
+      "Ambos mensajes copiados.",
+      "copyBoth",
+    )
   }
 
   function shareMessage() {
@@ -270,7 +336,7 @@ function App() {
 
                 <div className="field-group">
                   <Label className="field-label" htmlFor="customer">
-                    Cliente
+                    Cliente <span className="optional-label">(opcional)</span>
                   </Label>
                   <Input
                     autoComplete="name"
@@ -279,14 +345,14 @@ function App() {
                       updateField("customer", event.target.value)
                     }
                     placeholder="Nombre del cliente"
-                    required
                     value={fields.customer}
                   />
                 </div>
 
                 <div className="field-group">
                   <Label className="field-label" htmlFor="username">
-                    Usuario / Correo
+                    Usuario / Correo{" "}
+                    <span className="optional-label">(opcional)</span>
                   </Label>
                   <Input
                     autoComplete="off"
@@ -295,7 +361,6 @@ function App() {
                       updateField("username", event.target.value)
                     }
                     placeholder="Usuario o correo de acceso"
-                    required
                     value={fields.username}
                   />
                 </div>
@@ -303,7 +368,7 @@ function App() {
                 <div className="field-row date-profile-row">
                   <div className="field-group">
                     <Label className="field-label" htmlFor="expiration-date">
-                      Fecha de vencimiento
+                      Fecha de vencimiento{" "}
                     </Label>
                     <Input
                       className="expiration-date-input"
@@ -311,7 +376,6 @@ function App() {
                       onChange={(event) =>
                         updateField("expirationDate", event.target.value)
                       }
-                      required
                       type="date"
                       value={fields.expirationDate}
                     />
@@ -425,7 +489,8 @@ function App() {
 
                 <div className="field-group">
                   <Label className="field-label" htmlFor="warranty">
-                    Mensaje de garantía
+                    Mensaje de garantía{" "}
+                    <span className="optional-label">(opcional)</span>
                   </Label>
                   <Textarea
                     className="warranty-textarea"
@@ -433,7 +498,6 @@ function App() {
                     onChange={(event) =>
                       updateField("warranty", event.target.value)
                     }
-                    required
                     rows={2}
                     value={fields.warranty}
                   />
@@ -493,6 +557,133 @@ function App() {
                   role={feedback.type === "error" ? "alert" : "status"}
                 >
                   {feedback.message}
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="workspace payment-workspace">
+          <Card className="workspace-card payment-form-panel">
+            <CardHeader className="panel-header">
+              <CardTitle className="panel-title">Datos para el pago</CardTitle>
+            </CardHeader>
+            <CardContent className="panel-content">
+              <dl className="payment-details">
+                <div className="payment-detail-row">
+                  <dt>C.I.</dt>
+                  <dd>{paymentDetails.ci}</dd>
+                </div>
+                <div className="payment-detail-row">
+                  <dt>Teléfono</dt>
+                  <dd>{paymentDetails.phone}</dd>
+                </div>
+                <div className="payment-detail-row">
+                  <dt>Titular</dt>
+                  <dd>{paymentDetails.holder}</dd>
+                </div>
+              </dl>
+              <div className="field-group">
+                <Label className="field-label" htmlFor="payment-amount">
+                  Monto en Bs.
+                </Label>
+                <Input
+                  autoComplete="off"
+                  id="payment-amount"
+                  inputMode="decimal"
+                  min="0.01"
+                  onChange={(event) => {
+                    setPaymentAmount(event.target.value)
+                    setIsPaymentAmountValid(event.currentTarget.validity.valid)
+                    setPaymentFeedback(null)
+                    setCombinedFeedback(null)
+                  }}
+                  placeholder="0,00"
+                  required
+                  step="0.01"
+                  type="number"
+                  value={paymentAmount}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="workspace-card preview-panel payment-preview-panel">
+            <CardHeader className="panel-header preview-header">
+              <CardTitle className="panel-title">
+                Vista previa del mensaje de pago
+              </CardTitle>
+              <span className="live-indicator">
+                <span aria-hidden="true" className="live-dot" />
+                Se actualiza al escribir
+              </span>
+            </CardHeader>
+            <CardContent className="preview-content">
+              <pre
+                aria-label="Vista previa del mensaje de pago"
+                className="message-preview"
+              >
+                {renderMessagePreview(paymentMessage)}
+              </pre>
+              <div className="action-row">
+                <Button
+                  className="action-button"
+                  disabled={!isPaymentReady}
+                  onClick={copyPaymentMessage}
+                  type="button"
+                >
+                  {paymentFeedback?.action === "copy" &&
+                  paymentFeedback.type === "success" ? (
+                    <Check aria-hidden="true" />
+                  ) : (
+                    <Copy aria-hidden="true" />
+                  )}
+                  {paymentFeedback?.action === "copy" &&
+                  paymentFeedback.type === "success"
+                    ? "Mensaje copiado"
+                    : "Copiar mensaje"}
+                </Button>
+                <Button
+                  className="action-button"
+                  disabled={!isReady || !isPaymentReady}
+                  onClick={copyCombinedMessages}
+                  type="button"
+                  variant="outline"
+                >
+                  {combinedFeedback?.type === "success" ? (
+                    <Check aria-hidden="true" />
+                  ) : (
+                    <Copy aria-hidden="true" />
+                  )}
+                  {combinedFeedback?.type === "success"
+                    ? "Ambos mensajes copiados"
+                    : "Copiar ambos mensajes"}
+                </Button>
+              </div>
+              {paymentFeedback && (
+                <p
+                  aria-live={
+                    paymentFeedback.type === "error" ? "assertive" : "polite"
+                  }
+                  className={`feedback-message ${paymentFeedback.type}`}
+                  role={
+                    paymentFeedback.type === "error" ? "alert" : "status"
+                  }
+                >
+                  {paymentFeedback.message}
+                </p>
+              )}
+              {combinedFeedback && (
+                <p
+                  aria-live={
+                    combinedFeedback.type === "error" ? "assertive" : "polite"
+                  }
+                  className={`feedback-message ${combinedFeedback.type}`}
+                  role={
+                    combinedFeedback.type === "error" ? "alert" : "status"
+                  }
+                >
+                  {combinedFeedback.message}
                 </p>
               )}
             </CardContent>
